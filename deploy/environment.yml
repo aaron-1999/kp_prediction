@@ -1,0 +1,11 @@
+name: kp_webapp
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - openbabel
+  - fastapi
+  - uvicorn-standard
+  - slowapi
+  - pydantic
+  - requests

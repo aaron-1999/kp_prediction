@@ -1,0 +1,22 @@
+[Unit]
+Description=kp propagation-rate-constant prediction API
+After=network.target
+
+[Service]
+Type=simple
+User=aaron
+Group=aaron
+WorkingDirectory=/home/aaron/kp_webapp
+ExecStart=/home/aaron/software/miniforge3/envs/kp_webapp/bin/uvicorn api.main:app --host 127.0.0.1 --port 8001
+Restart=always
+RestartSec=3
+
+# Binds to localhost only on purpose - port 8001 (pick a free port; 8000 was
+# already in use by another app on the box this was first deployed on).
+# Nothing outside this machine can reach it until a
+# reverse proxy is put in front of it - see deploy/README.md. For now this
+# is fronted by a `cloudflared tunnel --url http://127.0.0.1:8001` quick
+# tunnel instead (also documented in deploy/README.md).
+
+[Install]
+WantedBy=multi-user.target
