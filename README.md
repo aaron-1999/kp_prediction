@@ -12,12 +12,24 @@ calculations + a CDFT analysis), so this is not a sub-second predictor - it's
 meant to replace manually driving ORCA/Multiwfn by hand for one monomer at a
 time, not to compete with a trained ML surrogate on latency.
 
+## Try it online
+
+No need to install anything or run the pipeline yourself - a hosted instance
+is running at:
+
+**https://win-fotos-pearl-alignment.trycloudflare.com**
+
+Submit a SMILES string, watch it progress through each pipeline stage, and
+get back kp(T) plus a chart. (This is a Cloudflare quick-tunnel URL, not a
+permanent domain - if it's gone dead, the instance has likely been
+restarted; open an issue and I'll update the link.)
+
 ## The method
 
 ### Background
 
-[Conceptual DFT](https://en.wikipedia.org/wiki/Conceptual_density_functional_theory)
-(CDFT) describes a molecule's local reactivity using **Fukui functions**,
+Conceptual DFT (CDFT) describes a molecule's local reactivity using
+[**Fukui functions**](https://en.wikipedia.org/wiki/Fukui_function),
 derived from how the electron density redistributes when an electron is
 added or removed:
 
@@ -104,20 +116,6 @@ print(job.result)
 This requires ORCA, Multiwfn, and OpenBabel to be installed and discoverable
 via `pipeline/config.py` (see [Requirements](#requirements) below) - no
 FastAPI/web dependency needed for this path at all.
-
-## Web app
-
-A small FastAPI backend runs the pipeline as a background job per submitted
-SMILES (a single calculation takes minutes, so this is genuinely
-asynchronous - submit, then poll for status, then fetch the result) and a
-single-file vanilla-JS/SVG frontend shows live progress through each pipeline
-stage, then the predicted kp(T) plus a log-scale kp-vs-temperature chart.
-
-```
-api/main.py     FastAPI routes: submit / status / result, rate-limited
-api/queue.py    single-worker FIFO job queue (one ORCA pipeline at a time)
-web/index.html  the entire frontend - no build step, no npm
-```
 
 ## Repository layout
 
