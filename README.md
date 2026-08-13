@@ -17,12 +17,10 @@ time, not to compete with a trained ML surrogate on latency.
 No need to install anything or run the pipeline yourself - a hosted instance
 is running at:
 
-**https://win-fotos-pearl-alignment.trycloudflare.com**
+[QSPR kp Prediction Model](https://win-fotos-pearl-alignment.trycloudflare.com)
 
 Submit a SMILES string, watch it progress through each pipeline stage, and
-get back kp(T) plus a chart. (This is a Cloudflare quick-tunnel URL, not a
-permanent domain - if it's gone dead, the instance has likely been
-restarted; open an issue and I'll update the link.)
+get back kp(T) plus a chart. 
 
 ## The method
 
